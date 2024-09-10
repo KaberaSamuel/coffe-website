@@ -1,2 +1,3 @@
 # coffe-website
-This is a coffice agency website
+
+This project is about creating a coffee agency website
