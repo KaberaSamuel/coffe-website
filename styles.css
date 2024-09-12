@@ -1,0 +1,164 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --lightwhite: rgb(250, 250, 250);
+}
+
+body {
+  font-size: 1.2rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  text-align: center;
+  letter-spacing: 2px;
+  word-spacing: 5px;
+  color: var(--lightwhite);
+  background-color: black;
+}
+
+/* home styles */
+#home {
+  position: relative;
+  min-height: 120vh;
+  font-size: 1.5rem;
+  padding: 30px 30px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* #home section > * {
+  border: blue 2px solid;
+} */
+
+#home::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(images/home-background.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
+  opacity: 0.4;
+}
+
+#home .logo {
+  display: inline-block;
+  font-size: 3rem;
+  letter-spacing: 10px;
+  font-weight: 600;
+  color: orangered;
+  text-align: start;
+}
+
+#home section {
+  flex: 1 1 auto;
+  padding: 0 0 30px;
+  display: flex;
+  justify-content: space-between;
+  /* border: 2px solid red; */
+}
+
+#home .side {
+  justify-content: flex-end;
+  font-size: 1.2rem;
+}
+
+#home .side .line {
+  background-color: rgba(160, 160, 160, 0.8);
+  width: 3px;
+  height: 50px;
+  text-align: center;
+}
+
+#home .side:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+#home .side:last-child {
+  align-self: flex-end;
+  writing-mode: vertical-rl;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+#home .middle {
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+  align-items: center;
+  font-size: 5rem;
+  font-weight: 700;
+}
+
+#home .middle .small {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+#home .middle p:last-child {
+  font-weight: 500;
+  font-size: 1.2rem;
+  border: var(--lightwhite) 2px solid;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 50px;
+}
+
+#home .scroll-down {
+  animation: 5s scroll-down infinite;
+}
+
+.animate-up {
+  animation: 1s animate-up ease both;
+}
+
+#menu {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+}
+
+/* common styles */
+#home .logo,
+#home .middle .small,
+#home .side,
+#menu {
+  text-transform: uppercase;
+}
+
+@keyframes scroll-down {
+  0%,
+  50%,
+  100% {
+    transform: translateY(0);
+  }
+
+  60%,
+  90% {
+    transform: translateY(-5px);
+  }
+
+  75% {
+    transform: translateY(20px);
+  }
+}
+
+@keyframes animate-up {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
