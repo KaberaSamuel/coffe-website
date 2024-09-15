@@ -31,9 +31,10 @@ body {
   top: 50px;
   right: 50px;
   z-index: 1;
-  background-color: black;
   font-size: 1.1rem;
   padding: 10px 15px;
+  animation: change-menu-background 1s both;
+  animation-timeline: scroll();
 }
 
 #back-to-top {
@@ -44,6 +45,7 @@ body {
   background-color: black;
   padding: 10px 15px;
   font-size: 1.2rem;
+  transition: opacity 1s ease;
 }
 
 aside {
@@ -104,10 +106,6 @@ aside i {
   gap: 10px;
   word-spacing: 5px;
 }
-
-/* #home section > * {
-  border: blue 2px solid;
-} */
 
 #home::before {
   content: "";
@@ -216,6 +214,16 @@ aside i {
   }
 }
 
+@keyframes change-menu-background {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  30%,
+  100% {
+    background-color: black;
+  }
+}
+
 /* about us styles */
 #about {
   min-height: 100vh;
@@ -321,20 +329,12 @@ a {
 }
 
 .fade-in {
-  animation: fade-in ease both;
-  animation-timeline: view();
-  animation-range: 10vh 40vh;
+  transition: all 1s ease 0.2s;
+  transform: translateY(50px);
+  opacity: 0;
 }
 
-@keyframes fade-in {
-  0%,
-  20% {
-    opacity: 0;
-    transform: translateY(100px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.fade-in.show {
+  transform: translateY(0);
+  opacity: 1;
 }
