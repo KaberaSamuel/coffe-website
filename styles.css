@@ -19,16 +19,15 @@ body {
   font-size: 1rem;
   font-weight: 700;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    sans-serif;
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-align: center;
   color: var(--lightwhite);
   background-color: black;
-  letter-spacing: 2px;
 }
 
 #menu {
   position: fixed;
-  top: 50px;
+  top: 30px;
   right: 50px;
   z-index: 1;
   font-size: 1.1rem;
@@ -43,9 +42,10 @@ body {
   right: 50px;
   z-index: 1;
   background-color: black;
-  padding: 10px 15px;
+  padding: 20px;
   font-size: 1.2rem;
   transition: opacity 1s ease;
+  color: white;
 }
 
 aside {
@@ -99,8 +99,7 @@ aside i {
 #home {
   position: relative;
   min-height: 120vh;
-  font-size: 1.5rem;
-  padding: 30px 30px 0;
+  padding: 20px 30px 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -136,7 +135,7 @@ aside i {
 
 #home .side {
   justify-content: flex-end;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 #home .side:first-child {
@@ -149,31 +148,34 @@ aside i {
 #home .side:last-child {
   align-self: flex-end;
   writing-mode: vertical-rl;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 2px;
 }
 
 #home .middle {
   display: flex;
   flex-direction: column;
-  padding-top: 50px;
+  padding-top: 10vh;
   align-items: center;
-  font-size: 5rem;
-  font-weight: 700;
+  font-size: 4rem;
+  letter-spacing: 2px;
+  font-weight: 750;
 }
 
 #home .middle .small {
-  font-size: 1.8rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
-#home .middle p:last-child {
-  font-weight: 500;
-  font-size: 1.2rem;
+#home .small:last-child {
+  display: inline-block;
+  font-weight: 550;
   border: var(--lightwhite) 2px solid;
   padding: 20px;
   border-radius: 10px;
-  margin-top: 50px;
+  margin-top: 40px;
 }
 
 #home .scroll-down {
@@ -268,17 +270,10 @@ aside i {
   background-repeat: no;
   color: var(--lightwhite);
   padding: 20vh 15vw;
-  color: rgb(180, 180, 180);
+  color: rgb(120, 120, 120);
   font-size: 1.2rem;
   font-weight: 500;
-}
-
-#services .horizontal-line {
-  display: inline-block;
-  height: 1px;
-  width: 250px;
-  margin-top: 60px;
-  background-color: rgb(86, 86, 86);
+  line-height: 1.7;
 }
 
 #services > div {
@@ -288,22 +283,136 @@ aside i {
   align-items: center;
 }
 
+#services > div:last-child {
+  gap: 40px;
+}
+
 #services h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.4rem;
+  font-weight: 750;
 }
 
 #services h2:nth-child(2) {
-  margin: 80px 0 40px;
-}
-
-#services h2:first-child + p {
-  font-size: 2.5rem;
-  color: var(--lightwhite);
+  margin: 60px 0 40px;
 }
 
 #services .orange {
-  margin-bottom: 15px;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* work page */
+#work {
+  min-height: 110vh;
+  background-color: white;
+  font-size: 1.5rem;
+}
+
+#showcase {
+  height: min(100vh, 650px);
+  background-color: rgb(20, 20, 20);
+  padding-top: 20vh;
+  color: gray;
+}
+
+#showcase * {
+  margin-bottom: 20px;
+}
+
+#work .images {
+  transform: translateY(-200px);
+  width: 90vw;
+  margin: 0 auto;
+}
+
+#work .images div {
+  display: flex;
+  align-items: stretch;
+}
+
+#work span {
+  width: 45vw;
+  overflow: hidden;
+  position: relative;
+}
+
+#work section:last-child {
+  transform: translateY(-150px);
+}
+
+#work img {
+  width: 100%;
+  height: 100%;
+  transition: all 0.4s ease-out;
+}
+
+#work img.hover {
+  scale: 1.1;
+  filter: brightness(25%);
+}
+
+#work .overlay-div {
+  position: absolute;
+  inset: 0;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.overlay-div p {
+  display: inline;
+}
+
+.overlay-div .title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: fit-content;
+  padding: 40px;
+  transform: translateY(150px);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.overlay-div .title.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.title div {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.title .upper {
+  font-size: 0.6rem;
+  color: rgb(180, 180, 180);
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+
+.overlay-div > div:last-child {
+  flex: 1 1 auto;
+  justify-content: center;
+}
+
+.title i {
+  font-size: 1rem;
+  padding-top: 10px;
+}
+
+#work .fa-ellipsis {
+  padding-top: 30%;
+  font-size: 0rem;
+  transition: font-size 0.3s ease;
+}
+
+#work .fa-ellipsis.animate {
+  font-size: 1.5rem;
 }
 
 /* common styles */
@@ -328,13 +437,32 @@ a {
   color: rgb(192, 58, 1);
 }
 
+.large {
+  color: white;
+  font-size: 3rem;
+  font-weight: 750;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+}
+
+.horizontal-line {
+  display: inline-block;
+  height: 2px;
+  width: 200px;
+  margin-top: 40px;
+  background-color: rgb(50, 50, 50);
+  border-radius: 2px;
+}
+
 .fade-in {
-  transition: all 1s ease 0.2s;
-  transform: translateY(50px);
+  transition: all 0.8s ease-out;
+  transform: translateY(100px);
   opacity: 0;
+  z-index: -1;
 }
 
 .fade-in.show {
-  transform: translateY(0);
+  transform: translateY(0px);
   opacity: 1;
+  z-index: 1;
 }
