@@ -81,12 +81,15 @@ const workFunctionalities = (function () {
   }
 })();
 
-const fadeInElementsFunctionality = (function () {
+const intersectionAnimations = (function () {
   let fadeInElements = Array.from(document.querySelectorAll("#about p"));
   const array2 = Array.from(document.querySelectorAll("#services *"));
-  const array3 = Array.from(document.querySelectorAll(".images span"));
+  const array3 = Array.from(document.querySelectorAll(".images > div"));
+  fadeInElements = fadeInElements.concat(array2, array3);
 
-  fadeInElements = fadeInElements.concat(array2);
+  fadeInElements.forEach((element) => {
+    element.classList.add("fade-in");
+  });
 
   function handleFadeInIntersection(entries) {
     entries.forEach((entry) => {
@@ -95,12 +98,23 @@ const fadeInElementsFunctionality = (function () {
   }
 
   const fadeInObserver = new IntersectionObserver(handleFadeInIntersection, {
+    rootMargin: "0px 0px 150px 0px",
     threshold: 0,
   });
 
   fadeInElements.forEach((element) => fadeInObserver.observe(element));
 
-  fadeInElements.forEach((element) => {
-    element.classList.add("fade-in");
+  const swiper = new Swiper(".swiper-container", {
+    direction: "horizontal",
+    loop: true,
+    velocity: 600,
+    spaceBetween: 30,
+    slidesPerView: 6,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+      dynamicBullets: true,
+      dynamicMainBullets: 3,
+    },
   });
 })();

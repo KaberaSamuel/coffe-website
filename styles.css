@@ -34,6 +34,7 @@ body {
   padding: 10px 15px;
   animation: change-menu-background 1s both;
   animation-timeline: scroll();
+  word-spacing: 10px;
 }
 
 #back-to-top {
@@ -120,10 +121,11 @@ aside i {
 
 #home .logo {
   display: inline-block;
-  font-size: 3rem;
-  letter-spacing: 10px;
-  font-weight: 600;
+  font-size: 2.5rem;
+  letter-spacing: 5px;
+  font-weight: 500;
   text-align: start;
+  font-family: "Jacques Francois Shadow";
 }
 
 #home section {
@@ -158,7 +160,7 @@ aside i {
   flex-direction: column;
   padding-top: 10vh;
   align-items: center;
-  font-size: 4rem;
+  font-size: 3rem;
   letter-spacing: 2px;
   font-weight: 750;
 }
@@ -260,6 +262,17 @@ aside i {
   color: var(--lightblack);
 }
 
+#about p:nth-child(4).fade-in {
+  opacity: 0;
+  transform: translateY(150px);
+  transition: all 0.8s ease;
+}
+
+#about p:nth-child(4).fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* services page */
 #services {
   min-height: 110vh;
@@ -269,7 +282,7 @@ aside i {
   background-size: cover;
   background-repeat: no;
   color: var(--lightwhite);
-  padding: 20vh 15vw;
+  padding: 20vh 15vw 5vh;
   color: rgb(120, 120, 120);
   font-size: 1.2rem;
   font-weight: 500;
@@ -326,9 +339,17 @@ aside i {
   margin: 0 auto;
 }
 
-#work .images div {
+#work .images > div {
   display: flex;
-  align-items: stretch;
+}
+
+#work .images .fade-in {
+  transform: translateY(300px);
+  transition: transform 1s ease;
+}
+
+#work .images .fade-in.show {
+  transform: translateY(0);
 }
 
 #work span {
@@ -411,12 +432,53 @@ aside i {
   transition: font-size 0.3s ease;
 }
 
+#work section:last-child {
+  font-size: 1rem;
+}
+
 #work .fa-ellipsis.animate {
   font-size: 1.5rem;
 }
 
-/* common styles */
+#our-partners h2 {
+  font-size: 1rem;
+}
+.swiper-container {
+  color: black;
+  width: 85vw;
+  padding: 5px;
+  margin: auto;
+  overflow: hidden;
+  user-select: none;
+  margin-top: 50px;
+  /* border: var(--blue-border); */
+}
 
+/* .swiper-container img {
+  border: var(--blue-border);
+  color: red;
+  filter: 90%;
+} */
+
+.swiper-wrapper {
+  margin-bottom: 20px !important;
+}
+
+.swiper-pagination-bullet {
+  display: inline-block;
+  width: 10px !important;
+  height: 10px !important;
+  min-width: 8px !important;
+  border-radius: 50%;
+  background-color: #000000 !important;
+  opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+/* common styles */
 a {
   color: var(--lightwhite);
   text-decoration: none;
@@ -455,14 +517,12 @@ a {
 }
 
 .fade-in {
-  transition: all 0.8s ease-out;
-  transform: translateY(100px);
+  transition: all 0.7s ease-out;
+  transform: translateY(200px);
   opacity: 0;
-  z-index: -1;
 }
 
 .fade-in.show {
   transform: translateY(0px);
   opacity: 1;
-  z-index: 1;
 }
