@@ -79,13 +79,30 @@ const workFunctionalities = (function () {
       span.querySelector(".fa-ellipsis").classList.remove("animate");
     });
   }
+
+  const swiper = new Swiper(".swiper-container", {
+    direction: "horizontal",
+    loop: true,
+    velocity: 200,
+    spaceBetween: 30,
+    slidesPerView: 6,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+      dynamicBullets: true,
+      dynamicMainBullets: 3,
+    },
+  });
 })();
 
 const intersectionAnimations = (function () {
   let fadeInElements = Array.from(document.querySelectorAll("#about p"));
   const array2 = Array.from(document.querySelectorAll("#services *"));
   const array3 = Array.from(document.querySelectorAll(".images > div"));
-  fadeInElements = fadeInElements.concat(array2, array3);
+  const array4 = Array.from(document.querySelectorAll("#our-partners > *"));
+
+  const array5 = Array.from(document.querySelectorAll("#contact > *"));
+  fadeInElements = fadeInElements.concat(array2, array3, array4, array5);
 
   fadeInElements.forEach((element) => {
     element.classList.add("fade-in");
@@ -103,18 +120,4 @@ const intersectionAnimations = (function () {
   });
 
   fadeInElements.forEach((element) => fadeInObserver.observe(element));
-
-  const swiper = new Swiper(".swiper-container", {
-    direction: "horizontal",
-    loop: true,
-    velocity: 600,
-    spaceBetween: 30,
-    slidesPerView: 6,
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-      dynamicBullets: true,
-      dynamicMainBullets: 3,
-    },
-  });
 })();

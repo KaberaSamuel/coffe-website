@@ -16,8 +16,7 @@ html {
 }
 
 body {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 1.2rem;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-align: center;
@@ -27,10 +26,11 @@ body {
 
 #menu {
   position: fixed;
-  top: 30px;
-  right: 50px;
+  top: 5vh;
+  right: 40px;
   z-index: 1;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   padding: 10px 15px;
   animation: change-menu-background 1s both;
   animation-timeline: scroll();
@@ -53,20 +53,27 @@ aside {
   position: fixed;
   inset: 0 0 0 auto;
   background-color: rgb(10, 10, 10);
-  color: var(--lightwhite);
+  color: gray;
   z-index: 2;
   width: 20vw;
   padding: 50px 30px;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 700;
   transition: transform 0.5s ease-in;
   transform: translateX(30vw);
+}
+
+aside p {
+  color: var(--lightwhite);
+  font-size: 1.1rem;
+  letter-spacing: 2px;
 }
 
 aside.show {
   transform: translate(0);
 }
 
-#close {
+aside #close {
   background-color: black;
   padding: 5px;
   margin-left: 10px;
@@ -89,7 +96,7 @@ aside a {
 }
 
 aside a:hover {
-  color: white;
+  color: var(--lightwhite);
 }
 
 aside i {
@@ -99,8 +106,8 @@ aside i {
 /* home styles */
 #home {
   position: relative;
-  min-height: 120vh;
-  padding: 20px 30px 0;
+  min-height: 130vh;
+  padding: 5vh 40px 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -111,17 +118,18 @@ aside i {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url(images/home-background.jpg);
-  background-position: center;
+  background-image: url(images/home-background-2.jpg);
+  background-position: top;
   background-size: cover;
   background-repeat: no-repeat;
   z-index: -2;
-  opacity: 0.4;
+  opacity: 1;
+  filter: blur(1px) grayscale(50%) brightness(50%);
 }
 
 #home .logo {
   display: inline-block;
-  font-size: 2.5rem;
+  font-size: 2rem;
   letter-spacing: 5px;
   font-weight: 500;
   text-align: start;
@@ -129,7 +137,7 @@ aside i {
 }
 
 #home section {
-  padding: 20px 0 50px;
+  padding: 15vh 0;
   flex: 1 1 auto;
   display: flex;
   justify-content: space-between;
@@ -137,7 +145,6 @@ aside i {
 
 #home .side {
   justify-content: flex-end;
-  font-size: 1.3rem;
 }
 
 #home .side:first-child {
@@ -150,15 +157,14 @@ aside i {
 #home .side:last-child {
   align-self: flex-end;
   writing-mode: vertical-rl;
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 2px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 3px;
 }
 
 #home .middle {
   display: flex;
   flex-direction: column;
-  padding-top: 10vh;
   align-items: center;
   font-size: 3rem;
   letter-spacing: 2px;
@@ -166,7 +172,7 @@ aside i {
 }
 
 #home .middle .small {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 700;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
@@ -178,10 +184,16 @@ aside i {
   padding: 20px;
   border-radius: 10px;
   margin-top: 40px;
+  font-size: 0.8rem;
+}
+
+#home .vertical-line {
+  width: 1px;
+  height: 50px;
 }
 
 #home .scroll-down {
-  animation: 5s scroll-down infinite;
+  animation: 4s scroll-down infinite;
   animation-timeline: scroll;
 }
 
@@ -191,18 +203,21 @@ aside i {
 
 @keyframes scroll-down {
   0%,
-  50%,
+  40%,
   100% {
     transform: translateY(0);
   }
 
-  60%,
-  90% {
+  50% {
     transform: translateY(-5px);
   }
 
   75% {
     transform: translateY(20px);
+  }
+
+  95% {
+    transform: translateY(-2px);
   }
 }
 
@@ -238,22 +253,17 @@ aside i {
   align-items: center;
   gap: 40px;
   padding: 50px 15vw;
-}
-
-#about .line {
-  height: 80px;
-}
-
-#about .line + p {
-  color: var(--lightblack);
-  word-spacing: normal;
-  font-size: 1.1rem;
   font-weight: 700;
-  margin-bottom: 40px;
+}
+
+#about .vertical-line + p {
+  color: var(--lightblack);
+  font-size: 1rem;
+  letter-spacing: 2px;
 }
 
 #about p:nth-child(3) {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 #about p:nth-child(4) {
@@ -276,17 +286,30 @@ aside i {
 /* services page */
 #services {
   min-height: 110vh;
-  background-image: linear-gradient(45deg, rgba(0, 0, 0), rgba(0, 0, 0, 0)),
+  color: rgb(140, 140, 140);
+  padding: 20vh 15vw 15vh;
+  position: relative;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+#services::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      150deg,
+      rgba(0, 0, 0, 0.8) 40%,
+      rgba(0, 0, 0, 0)
+    ),
     url(images/services-background.jpg);
   background-position: center;
   background-size: cover;
-  background-repeat: no;
-  color: var(--lightwhite);
-  padding: 20vh 15vw 5vh;
-  color: rgb(120, 120, 120);
-  font-size: 1.2rem;
-  font-weight: 500;
-  line-height: 1.7;
+  background-repeat: no-repeat;
+  opacity: 1;
+  filter: grayscale(100%);
 }
 
 #services > div {
@@ -301,25 +324,35 @@ aside i {
 }
 
 #services h2 {
-  font-size: 1.4rem;
-  font-weight: 750;
+  font-size: 1rem;
+  font-family: "Courier New", Courier, monospace;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: var(--lightwhite);
 }
 
 #services h2:nth-child(2) {
-  margin: 60px 0 40px;
+  margin: 30px 0;
 }
 
 #services .orange {
-  font-size: 1.2rem;
   margin-bottom: 20px;
   font-weight: 700;
+}
+
+#services .horizontal-line {
+  display: inline-block;
+  height: 1px;
+  width: 200px;
+  margin: 30px auto;
+  background-color: rgb(70, 70, 70);
 }
 
 /* work page */
 #work {
   min-height: 110vh;
   background-color: white;
-  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 #showcase {
@@ -344,8 +377,8 @@ aside i {
 }
 
 #work .images .fade-in {
-  transform: translateY(300px);
-  transition: transform 1s ease;
+  transform: translateY(350px);
+  transition: transform 0.8s ease;
 }
 
 #work .images .fade-in.show {
@@ -449,16 +482,9 @@ aside i {
   padding: 5px;
   margin: auto;
   overflow: hidden;
-  user-select: none;
   margin-top: 50px;
-  /* border: var(--blue-border); */
+  user-select: none;
 }
-
-/* .swiper-container img {
-  border: var(--blue-border);
-  color: red;
-  filter: 90%;
-} */
 
 .swiper-wrapper {
   margin-bottom: 20px !important;
@@ -478,6 +504,104 @@ aside i {
   opacity: 1;
 }
 
+/* contact page */
+#contact {
+  min-height: 140vh;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+  line-height: 1.5;
+  color: rgb(110, 110, 110);
+  position: relative;
+}
+
+#contact::before {
+  content: "";
+  inset: 0;
+  position: absolute;
+  background-image: url(images/contact-background.jpg);
+  z-index: -1;
+  filter: blur(1px) brightness(50%);
+}
+
+#contact .upper {
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
+#contact .upper,
+#contact .larger {
+  color: white;
+}
+
+#contact > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+#contact .horizontal-line {
+  display: inline-block;
+  height: 1px;
+  width: 200px;
+  background-color: gray;
+  margin: 40px auto 20px;
+}
+
+#contact .contact-para {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+/* footer page */
+footer {
+  color: gray;
+  padding: 100px 20px 20px;
+  background-color: #171717;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.8;
+}
+
+footer .container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+footer .container > * {
+  flex: 1 1 auto;
+}
+
+footer .container > p {
+  text-align: left;
+  padding-left: 100px;
+}
+
+footer .socials p {
+  margin-bottom: 80px;
+}
+
+footer .upper {
+  color: white;
+}
+
+footer .socials {
+  width: 30%;
+  text-align: left;
+  padding-left: 50px;
+}
+
+footer a {
+  display: block;
+  color: inherit;
+}
+
 /* common styles */
 a {
   color: var(--lightwhite);
@@ -488,32 +612,31 @@ a {
   text-transform: uppercase;
 }
 
-.line {
-  background-color: rgba(134, 134, 134);
-  width: 3px;
-  height: 60px;
+.vertical-line {
+  background-color: rgba(160, 160, 160);
+  width: 2px;
+  height: 90px;
   text-align: center;
 }
 
 .orange {
-  color: rgb(192, 58, 1);
+  color: rgb(192, 103, 1);
 }
 
 .large {
   color: white;
-  font-size: 3rem;
-  font-weight: 750;
+  font-size: 2.5rem;
+  font-weight: 700;
   letter-spacing: 2px;
   text-transform: capitalize;
 }
 
 .horizontal-line {
   display: inline-block;
-  height: 2px;
+  height: 1px;
   width: 200px;
-  margin-top: 40px;
-  background-color: rgb(50, 50, 50);
-  border-radius: 2px;
+  margin: 30px auto;
+  background-color: rgb(60, 60, 60);
 }
 
 .fade-in {
