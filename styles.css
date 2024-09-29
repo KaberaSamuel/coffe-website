@@ -418,24 +418,24 @@ aside i {
   transition: all 0.4s ease;
 }
 
-.overlay-div p {
+#work .overlay-div p {
   display: inline;
 }
 
-.overlay-div .fa-clone {
+#work .overlay-div .fa-clone {
   font-size: 0.7rem;
   padding: 10px 17px;
   border-radius: 5px;
   align-content: center;
 }
 
-.overlay-div .fa-clone:hover {
+#work .overlay-div .fa-clone:hover {
   cursor: grab;
   color: black;
   background-color: white;
 }
 
-.overlay-div .title {
+#work .overlay-div .title {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -446,7 +446,7 @@ aside i {
   transition: all 0.4s ease;
 }
 
-.overlay-div .title.animate {
+#work .overlay-div .title.animate {
   opacity: 1;
   transform: translateY(0);
 }
@@ -619,28 +619,47 @@ footer a {
 
 /* slideshow page */
 #slideshow {
+  display: none;
+  opacity: 0;
   position: fixed;
   inset: 0;
-  opacity: 1;
   z-index: 2;
   background-color: black;
   color: white;
   user-select: none;
-  /* opacity: 0; */
-  /* pointer-events: none; */
+  transition-property: display opacity;
+  transition-duration: 0.5s;
+  transition-behavior: allow-discrete;
+}
+
+#slideshow i {
+  color: gray;
+}
+
+#slideshow i:hover {
+  color: white;
+}
+
+#slideshow.show {
+  display: block;
+  opacity: 1;
+
+  @starting-style {
+    opacity: 0;
+  }
 }
 
 #slideshow .top {
   position: absolute;
   top: 0;
   width: 100%;
-  height: 10vh;
+  height: 50px;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 30px;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   z-index: 2;
 }
 
@@ -654,16 +673,18 @@ footer a {
 }
 
 #slideshow .swiper-2 {
-  width: 80%;
-  height: 100%;
+  width: 70vw;
+  height: 100vh;
   margin: auto;
   overflow: hidden;
 
   /* padding-top: 300px; */
 }
 
-#slideshow .swiper-2 .swiper-wrapper {
+#slideshow .swiper-2 .swiper-slide {
   width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 #slideshow .swiper-2 .nav-arrow {
@@ -679,18 +700,47 @@ footer a {
   right: 10vh;
 }
 
-#slideshow .swiper-3 {
-  padding: 8px 5px;
-  align-content: center;
+#slideshow .swiper-2 img.animate {
+  animation: image-zoom-in 0.3s ease-out both 0.3s;
+}
+
+@keyframes image-zoom-in {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+#slideshow .bottom-carousel {
   position: fixed;
   bottom: 0px;
-  height: 100px;
   width: 100vw;
   z-index: 2;
-  background-color: var(--lightblack);
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100px);
+  transition: transform 0.3s ease;
+}
 
-  /* opacity: 0;
-  pointer-events: none; */
+#slideshow .bottom-carousel.show {
+  transform: translateY(0);
+}
+
+#slideshow .bottom-carousel .toggle-visibility {
+  align-self: flex-end;
+  margin-right: 30px;
+  padding: 5px 15px;
+  background-color: var(--lightblack);
+}
+
+#slideshow .bottom-carousel .swiper-3 {
+  height: 100px;
+  padding: 10px 5px;
+  align-content: center;
+  background-color: var(--lightblack);
 }
 
 #slideshow .swiper-3 .swiper-slide {
@@ -717,6 +767,35 @@ footer a {
   height: 80px;
 }
 
+.swiper-2 .overlay-div {
+  width: fit-content;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  bottom: 0;
+  color: rgb(187, 187, 187);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 10px;
+  line-height: 1.6;
+  transition: transform 0.3s ease;
+}
+
+#slideshow .overlay-div.moved-up {
+  transform: translateY(-100px);
+}
+
+.swiper-2 .overlay-div h2 {
+  color: white;
+  font-size: 1rem;
+}
+
+.swiper-2 .overlay-div .orange {
+  text-transform: uppercase;
+  font-size: 0.65rem;
+  font-weight: 650;
+  font-family: cursive;
+}
+
 /* common styles */
 a {
   color: var(--lightwhite);
@@ -735,7 +814,7 @@ a {
 }
 
 .orange {
-  color: rgb(192, 103, 1);
+  color: rgb(207, 139, 62);
 }
 
 .large {

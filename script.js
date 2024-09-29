@@ -78,6 +78,16 @@ const workFunctionalities = (function () {
       span.querySelector(".title").classList.remove("animate");
       span.querySelector(".fa-ellipsis").classList.remove("animate");
     });
+
+    span.addEventListener("click", () => {
+      slideShowFunctionalities.page.classList.add("show");
+
+      slideShowFunctionalities.page
+        .querySelectorAll(".swiper-2 img")
+        .forEach((image) => {
+          image.classList.add("animate");
+        });
+    });
   }
 
   const swiper = new Swiper(".swiper-1", {
@@ -96,20 +106,34 @@ const workFunctionalities = (function () {
 })();
 
 const slideShowFunctionalities = (function () {
-  const counterPara = document.querySelector("#slideshow .counter");
+  const slideshowPage = document.querySelector("#slideshow");
 
-  const nextArrow = document.querySelector("#slideshow .next");
-  const prevArrow = document.querySelector("#slideshow .prev");
+  const revealBottom = slideshowPage.querySelector(".toggle-visibility");
+
+  const bottomCarousel = slideshowPage.querySelector(".bottom-carousel");
+  const overlayDivs = slideshowPage.querySelectorAll(".overlay-div");
+
+  const counterPara = slideshowPage.querySelector(" .counter");
+  const closeButton = slideshowPage.querySelector(" .close-button");
+
+  const nextArrow = slideshowPage.querySelector(" .next");
+  const prevArrow = slideshowPage.querySelector(".prev");
 
   const swiper3 = new Swiper(".swiper-3", {
     slidesPerView: "auto",
-    spaceBetween: 5,
+    spaceBetween: 7,
     loop: true,
   });
 
   const swiper2 = new Swiper(".swiper-2", {
     direction: "horizontal",
     loop: true,
+
+    keyboard: {
+      enabled: true,
+      onlyInViewport: true,
+    },
+
     navigation: {
       nextEl: ".swiper-2 .swiper-button-next",
       prevEl: ".swiper-2 .swiper-button-prev",
@@ -133,9 +157,22 @@ const slideShowFunctionalities = (function () {
   prevArrow.addEventListener("click", () => {
     swiper2.slidePrev();
   });
+
+  closeButton.addEventListener("click", () => {
+    slideshowPage.classList.remove("show");
+  });
+
+  revealBottom.addEventListener("click", () => {
+    bottomCarousel.classList.toggle("show");
+    overlayDivs.forEach(function (div) {
+      div.classList.toggle("moved-up");
+    });
+  });
+
+  return { page: slideshowPage, mainSwiper: swiper2 };
 })();
 
-const intersectionAnimations = (function () {
+const animations = (function () {
   let fadeInElements = Array.from(document.querySelectorAll("#about p"));
   const array2 = Array.from(document.querySelectorAll("#services *"));
   const array3 = Array.from(document.querySelectorAll(".images > div"));
