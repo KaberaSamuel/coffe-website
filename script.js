@@ -80,7 +80,7 @@ const workFunctionalities = (function () {
     });
   }
 
-  const swiper = new Swiper(".swiper-container", {
+  const swiper = new Swiper(".swiper-1", {
     direction: "horizontal",
     loop: true,
     velocity: 200,
@@ -92,6 +92,46 @@ const workFunctionalities = (function () {
       dynamicBullets: true,
       dynamicMainBullets: 3,
     },
+  });
+})();
+
+const slideShowFunctionalities = (function () {
+  const counterPara = document.querySelector("#slideshow .counter");
+
+  const nextArrow = document.querySelector("#slideshow .next");
+  const prevArrow = document.querySelector("#slideshow .prev");
+
+  const swiper3 = new Swiper(".swiper-3", {
+    slidesPerView: "auto",
+    spaceBetween: 5,
+    loop: true,
+  });
+
+  const swiper2 = new Swiper(".swiper-2", {
+    direction: "horizontal",
+    loop: true,
+    navigation: {
+      nextEl: ".swiper-2 .swiper-button-next",
+      prevEl: ".swiper-2 .swiper-button-prev",
+    },
+
+    thumbs: {
+      swiper: swiper3,
+    },
+  });
+
+  function updateCounterPara() {
+    counterPara.textContent = `${swiper2.realIndex + 1} / 10`;
+  }
+
+  swiper2.on("slideChange", updateCounterPara);
+
+  nextArrow.addEventListener("click", () => {
+    swiper2.slideNext();
+  });
+
+  prevArrow.addEventListener("click", () => {
+    swiper2.slidePrev();
   });
 })();
 
