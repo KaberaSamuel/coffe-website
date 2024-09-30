@@ -80,13 +80,20 @@ const workFunctionalities = (function () {
     });
 
     span.addEventListener("click", () => {
+      const activeIndex = Number(span.id.split("").at(-1));
+      slideShowFunctionalities.mainSwiper.slideTo(activeIndex, 0);
+
+      const activeImage = Array.from(
+        slideShowFunctionalities.page.querySelectorAll(".swiper-2 img")
+      )[activeIndex];
+
+      activeImage.style.transform = "scale(0)";
+      activeImage.style.transition = "transform 0.5s ease";
       slideShowFunctionalities.page.classList.add("show");
 
-      slideShowFunctionalities.page
-        .querySelectorAll(".swiper-2 img")
-        .forEach((image) => {
-          image.classList.add("animate");
-        });
+      window.setTimeout(() => {
+        activeImage.style.transform = "scale(1)";
+      }, 100);
     });
   }
 
@@ -144,11 +151,9 @@ const slideShowFunctionalities = (function () {
     },
   });
 
-  function updateCounterPara() {
+  swiper2.on("slideChange", () => {
     counterPara.textContent = `${swiper2.realIndex + 1} / 10`;
-  }
-
-  swiper2.on("slideChange", updateCounterPara);
+  });
 
   nextArrow.addEventListener("click", () => {
     swiper2.slideNext();

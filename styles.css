@@ -677,8 +677,6 @@ footer a {
   height: 100vh;
   margin: auto;
   overflow: hidden;
-
-  /* padding-top: 300px; */
 }
 
 #slideshow .swiper-2 .swiper-slide {
@@ -690,7 +688,6 @@ footer a {
 #slideshow .swiper-2 .nav-arrow {
   position: fixed;
   top: 50vh;
-  /* border: var(--blue-border); */
 }
 
 #slideshow .swiper-2 .prev {
@@ -698,19 +695,6 @@ footer a {
 }
 #slideshow .swiper-2 .next {
   right: 10vh;
-}
-
-#slideshow .swiper-2 img.animate {
-  animation: image-zoom-in 0.3s ease-out both 0.3s;
-}
-
-@keyframes image-zoom-in {
-  from {
-    scale: 0;
-  }
-  to {
-    scale: 1;
-  }
 }
 
 #slideshow .bottom-carousel {
@@ -761,11 +745,26 @@ footer a {
 
 #slideshow .swiper-container img {
   width: 100%;
+  overflow: hidden;
 }
 
 #slideshow .swiper-3 img {
   height: 80px;
 }
+
+/* #slideshow .swiper-2 img.animate {
+  animation: image-zoom-in 0.3s backwards 0.2s;
+  animation-iteration-count: 1;
+}
+
+@keyframes image-zoom-in {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+} */
 
 .swiper-2 .overlay-div {
   width: fit-content;
