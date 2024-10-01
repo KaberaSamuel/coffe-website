@@ -124,12 +124,13 @@ const slideShowFunctionalities = (function () {
 
   const counterPara = slideshowPage.querySelector(" .counter");
   const closeButton = slideshowPage.querySelector("#close-button");
-  const loaderWatcher = slideshowPage.querySelector("#autoplay-watcher");
 
   const nextArrow = slideshowPage.querySelector(" .next");
   const prevArrow = slideshowPage.querySelector(".prev");
 
+  const loaderWatcher = slideshowPage.querySelector("#autoplay-watcher");
   const togglePlayButton = slideshowPage.querySelector("#toggle-play");
+  const toggleScreenMode = slideshowPage.querySelector("#toggle-screen-mode");
 
   const htmlElements = {
     playElement: `<i class="fa-regular fa-circle-play"></i>`,
@@ -229,6 +230,18 @@ const slideShowFunctionalities = (function () {
       });
     }
   );
+
+  toggleScreenMode.addEventListener("click", () => {
+    if (document.fullscreenElement) {
+      toggleScreenMode.innerHTML = htmlElements.fullScreenElement;
+      document.exitFullscreen();
+      slideshowPage.querySelector(".swiper-2").style.width = "70%";
+    } else {
+      toggleScreenMode.innerHTML = htmlElements.smallScreenElement;
+      slideshowPage.requestFullscreen();
+      slideshowPage.querySelector(".swiper-2").style.width = "85%";
+    }
+  });
 
   return { page: slideshowPage, mainSwiper: swiper2 };
 })();

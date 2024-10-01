@@ -710,13 +710,14 @@ footer a {
 #slideshow .swiper-2 .nav-arrow {
   position: fixed;
   top: 50vh;
+  font-size: 0.9rem;
 }
 
 #slideshow .swiper-2 .prev {
-  left: 10vh;
+  left: 40px;
 }
 #slideshow .swiper-2 .next {
-  right: 10vh;
+  right: 40px;
 }
 
 #slideshow .bottom-carousel {
@@ -767,6 +768,7 @@ footer a {
 
 #slideshow .swiper-container img {
   width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
