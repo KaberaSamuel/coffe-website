@@ -113,6 +113,8 @@ const workFunctionalities = (function () {
 })();
 
 const slideShowFunctionalities = (function () {
+  const autoplayDelay = 3000;
+
   const slideshowPage = document.querySelector("#slideshow");
 
   const revealBottom = slideshowPage.querySelector(".toggle-visibility");
@@ -121,10 +123,20 @@ const slideShowFunctionalities = (function () {
   const overlayDivs = slideshowPage.querySelectorAll(".overlay-div");
 
   const counterPara = slideshowPage.querySelector(" .counter");
-  const closeButton = slideshowPage.querySelector(" .close-button");
+  const closeButton = slideshowPage.querySelector("#close-button");
+  const loaderWatcher = slideshowPage.querySelector("#autoplay-watcher");
 
   const nextArrow = slideshowPage.querySelector(" .next");
   const prevArrow = slideshowPage.querySelector(".prev");
+
+  const togglePlayButton = slideshowPage.querySelector("#toggle-play");
+
+  const htmlElements = {
+    playElement: `<i class="fa-regular fa-circle-play"></i>`,
+    pauseElement: `<i class="fa-regular fa-circle-pause"></i>`,
+    fullScreenElement: `<i class="fa-solid fa-expand"></i>`,
+    smallScreenElement: `<i class="fa-solid fa-compress"></i>`,
+  };
 
   const swiper3 = new Swiper(".swiper-3", {
     slidesPerView: "auto",
@@ -151,16 +163,40 @@ const slideShowFunctionalities = (function () {
     },
   });
 
+  function stopAutoplay() {
+    togglePlayButton.innerHTML = htmlElements.playElement;
+    swiper2.autoplay.stop();
+    loaderWatcher.classList.add("hidden");
+  }
+
+  function loadProgress() {
+    const loaderFiller = slideshowPage.querySelector("#filler");
+
+    loaderFiller.style.transition = "none";
+    loaderFiller.style.width = "0";
+    window.setTimeout(() => {
+      loaderFiller.style.transition = `width ${autoplayDelay}ms`;
+      loaderFiller.style.width = "100%";
+    }, 50);
+  }
+
   swiper2.on("slideChange", () => {
     counterPara.textContent = `${swiper2.realIndex + 1} / 10`;
+    if (swiper2.autoplay.running) {
+      loadProgress();
+    }
   });
+
+  swiper2.on("touchMove", stopAutoplay);
 
   nextArrow.addEventListener("click", () => {
     swiper2.slideNext();
+    stopAutoplay();
   });
 
   prevArrow.addEventListener("click", () => {
     swiper2.slidePrev();
+    stopAutoplay();
   });
 
   closeButton.addEventListener("click", () => {
@@ -173,6 +209,26 @@ const slideShowFunctionalities = (function () {
       div.classList.toggle("moved-up");
     });
   });
+
+  togglePlayButton.addEventListener("click", () => {
+    if (swiper2.autoplay.running) {
+      stopAutoplay();
+    } else {
+      togglePlayButton.innerHTML = htmlElements.pauseElement;
+      swiper2.params.autoplay.delay = autoplayDelay;
+      loaderWatcher.classList.remove("hidden");
+      swiper2.autoplay.start();
+      loadProgress();
+    }
+  });
+
+  Array.from(bottomCarousel.querySelectorAll(".swiper-slide")).forEach(
+    (slide) => {
+      slide.addEventListener("click", () => {
+        stopAutoplay();
+      });
+    }
+  );
 
   return { page: slideshowPage, mainSwiper: swiper2 };
 })();
