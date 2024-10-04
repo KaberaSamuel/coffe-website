@@ -119,6 +119,8 @@ const slideShowFunctionalities = (function () {
 
   const revealBottom = slideshowPage.querySelector(".toggle-visibility");
 
+  const swiper2Element = slideshowPage.querySelector(".swiper-2");
+
   const bottomCarousel = slideshowPage.querySelector(".bottom-carousel");
   const overlayDivs = slideshowPage.querySelectorAll(".overlay-div");
 
@@ -242,6 +244,105 @@ const slideShowFunctionalities = (function () {
       slideshowPage.querySelector(".swiper-2").style.width = "85%";
     }
   });
+
+  const ZoomingFunctionalities = (function () {
+    const zoomInButton = slideshowPage.querySelector("#zoom-in");
+    const zoomOutButton = slideshowPage.querySelector("#zoom-out");
+    let currentScale = 1;
+    let currentImage;
+
+    let mouseDown = false;
+    let startX = 0;
+    let startY = 0;
+    let walkX = 0;
+    let walkY = 0;
+    let translateX = 0;
+    let translateY = 0;
+
+    zoomInButton.addEventListener("click", () => {
+      currentScale += 1;
+      swiper2.allowTouchMove = false;
+      zoomOutButton.classList.remove("frozen");
+      currentImage = Array.from(
+        slideshowPage.querySelectorAll(".swiper-2 img")
+      )[swiper2.realIndex];
+
+      swiper2Element.style.width = "100%";
+      currentImage.classList.add("zoom-mode");
+      currentImage.style.scale = currentScale;
+
+      currentImage.addEventListener("mousedown", (event) => {
+        mouseDown = true;
+        startX = event.offsetX;
+        startY = event.offsetY;
+      });
+
+      currentImage.addEventListener("mousemove", (event) => {
+        if (!mouseDown) return;
+        walkX += (event.offsetX - startX) * 0.5;
+        walkY += (event.offsetY - startY) * 0.5;
+        currentImage.style.transform = `translate(${walkX}px, ${walkY}px)`;
+      });
+
+      document.addEventListener("mouseup", () => {
+        mouseDown = false;
+
+        const rect = currentImage.getBoundingClientRect();
+        let top = rect.top / currentScale;
+        let bottom = (window.innerHeight - rect.bottom) / currentScale;
+        let left = rect.left / currentScale;
+        let right = (window.innerWidth - rect.right) / currentScale;
+
+        translateX = new DOMMatrix(
+          window.getComputedStyle(currentImage).transform
+        ).m41;
+        translateY = new DOMMatrix(
+          window.getComputedStyle(currentImage).transform
+        ).m42;
+
+        console.log(`TranslateX: ${translateX} , TranslateY: ${translateY}\n`);
+        console.log(
+          `top: ${top} \nleft: ${left} \nbottom: ${bottom} \nright: ${right} \n\n`
+        );
+
+        if (top > 0) {
+          translateY -= top;
+          walkY = 0;
+        }
+
+        if (bottom > 0) {
+          translateY += bottom;
+          walkY = 0;
+        }
+
+        if (right > 0) {
+          translateX += right;
+          walkX = 0;
+        }
+
+        if (left > 0) {
+          translateX -= left;
+          walkX = 0;
+        }
+
+        currentImage.style.transform = `translate(${translateX}px, ${translateY}px)`;
+      });
+    });
+
+    zoomOutButton.addEventListener("click", () => {
+      currentScale -= 1;
+
+      currentImage.style.scale = currentScale;
+
+      if (currentImage.style.scale <= 1) {
+        zoomOutButton.classList.add("frozen");
+        swiper2Element.style.width = "70%";
+        swiper2.allowTouchMove = true;
+        currentImage.style.transform = "translate(0px,0px)";
+        currentImage.classList.remove("zoom-mode");
+      }
+    });
+  })();
 
   return { page: slideshowPage, mainSwiper: swiper2 };
 })();

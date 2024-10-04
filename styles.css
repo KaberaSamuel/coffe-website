@@ -13,6 +13,7 @@ html {
   --lightblack: rgb(23, 23, 23);
   --blue-border: 2px solid blue;
   --red-border: 2px solid red;
+  --zoomDuration: 0.5s;
 }
 
 body {
@@ -619,8 +620,8 @@ footer a {
 
 /* slideshow page */
 #slideshow {
-  display: none;
-  opacity: 0;
+  /* display: none;
+  opacity: 0; */
   position: fixed;
   inset: 0;
   z-index: 2;
@@ -689,6 +690,10 @@ footer a {
   font-weight: 600;
 }
 
+#slideshow #zoom-out.frozen {
+  pointer-events: none;
+}
+
 #slideshow .top .right {
   display: flex;
   gap: 50px;
@@ -698,6 +703,7 @@ footer a {
   width: 70vw;
   height: 100vh;
   margin: auto;
+  transition: width var(--zoomDuration) ease;
   overflow: hidden;
 }
 
@@ -729,7 +735,7 @@ footer a {
   display: flex;
   flex-direction: column;
   transform: translateY(100px);
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
 #slideshow .bottom-carousel.show {
@@ -758,21 +764,27 @@ footer a {
   width: 100px !important;
   border: var(--lightwhite) 2px solid;
   height: fit-content;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
-#slideshow .swiper-3 .swiper-slide-active,
 #slideshow .swiper-3 .swiper-slide:hover {
   border: orange 2px solid;
 }
 
-#slideshow .swiper-container img {
+#slideshow .swiper-2 img {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  transition: scale var(--zoomDuration) ease;
+  border: red 5px solid;
+}
+
+#slideshow .swiper-2 img.zoom-mode {
+  width: auto;
+  height: auto;
 }
 
 #slideshow .swiper-3 img {
+  width: 100%;
   height: 80px;
 }
 
@@ -786,7 +798,7 @@ footer a {
   font-weight: 600;
   padding: 10px;
   line-height: 1.6;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
 #slideshow .overlay-div.moved-up {
