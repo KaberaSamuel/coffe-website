@@ -700,11 +700,12 @@ footer a {
 }
 
 #slideshow .swiper-2 {
-  width: 70vw;
+  width: 70%;
   height: 100vh;
   margin: auto;
-  transition: width var(--zoomDuration) ease;
   overflow: hidden;
+  max-width: 100vw;
+  transition: width 0.3s;
 }
 
 #slideshow .swiper-2 .swiper-slide {
@@ -764,7 +765,6 @@ footer a {
   width: 100px !important;
   border: var(--lightwhite) 2px solid;
   height: fit-content;
-  /* overflow: hidden; */
 }
 
 #slideshow .swiper-3 .swiper-slide:hover {
@@ -772,13 +772,6 @@ footer a {
 }
 
 #slideshow .swiper-2 img {
-  width: 100%;
-  height: 100%;
-  transition: scale var(--zoomDuration) ease;
-  border: red 5px solid;
-}
-
-#slideshow .swiper-2 img.zoom-mode {
   width: auto;
   height: auto;
 }
