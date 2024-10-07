@@ -27,8 +27,6 @@ const homeFunctionalities = (function () {
   homeObserver.observe(home);
 })();
 
-const handleAnimations = (function () {})();
-
 const sideFunationalities = (function () {
   const menu = document.querySelector("#menu");
   const closebutton = document.querySelector("#close");
@@ -82,6 +80,7 @@ const workFunctionalities = (function () {
     span.addEventListener("click", () => {
       const activeIndex = Number(span.id.split("").at(-1));
       slideShowFunctionalities.mainSwiper.slideTo(activeIndex, 0);
+      console.log(" span id: " + activeIndex);
 
       const activeImage = Array.from(
         slideShowFunctionalities.page.querySelectorAll(".swiper-2 img")
@@ -133,6 +132,7 @@ const slideShowFunctionalities = (function () {
   const loaderWatcher = slideshowPage.querySelector("#autoplay-watcher");
   const togglePlayButton = slideshowPage.querySelector("#toggle-play");
   const toggleScreenMode = slideshowPage.querySelector("#toggle-screen-mode");
+  const zoomOutButton = slideshowPage.querySelector("#zoom-out");
 
   const htmlElements = {
     playElement: `<i class="fa-regular fa-circle-play"></i>`,
@@ -144,7 +144,7 @@ const slideShowFunctionalities = (function () {
   const swiper3 = new Swiper(".swiper-3", {
     slidesPerView: "auto",
     spaceBetween: 7,
-    loop: true,
+    // loop: true,
   });
 
   const swiper2 = new Swiper(".swiper-2", {
@@ -166,6 +166,13 @@ const slideShowFunctionalities = (function () {
     },
   });
 
+  function sortSwiper2Images() {
+    const array = Array.from(document.querySelectorAll(".swiper-2 img"));
+
+    // console.log(array.toSorted());
+    return array;
+  }
+
   function stopAutoplay() {
     togglePlayButton.innerHTML = htmlElements.playElement;
     swiper2.autoplay.stop();
@@ -183,11 +190,22 @@ const slideShowFunctionalities = (function () {
     }, 50);
   }
 
-  swiper2.on("slideChange", () => {
+  function resetPanZoom() {
+    zoomOutButton.classList.add("frozen");
+    zoomingFunctionalities.currentImage.classList.remove("zoomed");
+    zoomingFunctionalities.panzoom.reset();
+    zoomingFunctionalities.panzoom.destroy();
+    zoomingFunctionalities.currentImage =
+      sortSwiper2Images()[swiper2.activeIndex];
+    console.log(swiper2.activeIndex, zoomingFunctionalities.currentImage);
+  }
+
+  swiper2.on("slideChangeTransitionEnd", () => {
     counterPara.textContent = `${swiper2.realIndex + 1} / 10`;
     if (swiper2.autoplay.running) {
       loadProgress();
     }
+    resetPanZoom();
   });
 
   swiper2.on("touchMove", stopAutoplay);
@@ -245,12 +263,10 @@ const slideShowFunctionalities = (function () {
     }
   });
 
-  const ZoomingFunctionalities = (function () {
+  const zoomingFunctionalities = (function () {
     const zoomInButton = slideshowPage.querySelector("#zoom-in");
-    const zoomOutButton = slideshowPage.querySelector("#zoom-out");
-    let currentImage = Array.from(
-      slideshowPage.querySelectorAll(".swiper-2 img")
-    )[swiper2.realIndex];
+
+    let currentImage = sortSwiper2Images()[swiper2.activeIndex];
 
     let isMouseDown = false;
 
@@ -262,18 +278,21 @@ const slideShowFunctionalities = (function () {
       cursor: "grab",
       duration: 300,
       step: 0.5,
+      // noBind: true,
     });
 
     zoomInButton.addEventListener("click", () => {
+      // panzoomInstance.bind(currentImage);
       zoomOutButton.classList.remove("frozen");
       panzoomInstance.zoomIn();
+      currentImage.classList.add("zoomed");
     });
 
     zoomOutButton.addEventListener("click", () => {
       panzoomInstance.zoomOut();
+      panzoomInstance.pan(0, 0);
       if (panzoomInstance.getScale() === 1) {
-        panzoomInstance.reset();
-        zoomOutButton.classList.add("frozen");
+        resetPanZoom();
       }
     });
 
@@ -308,8 +327,13 @@ const slideShowFunctionalities = (function () {
     });
 
     currentImage.addEventListener("panzoomzoom", () => {
-      swiper2Element.style.width = `calc(70% * ${panzoomInstance.getScale()})`;
+      // swiper2Element.style.width = `calc(70% * ${panzoomInstance.getScale()})`;
     });
+
+    return {
+      panzoom: panzoomInstance,
+      currentImage,
+    };
   })();
 
   return { page: slideshowPage, mainSwiper: swiper2 };
