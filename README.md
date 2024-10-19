@@ -1,3 +1,3 @@
 # coffe-website
 
-This project is about creating innovation agency website
+This project is a website about coffe innovation agency  
